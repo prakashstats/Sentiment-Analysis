@@ -6,12 +6,13 @@ library("SnowballC")          # These three packages used for text mining & anal
 library("tm")
 library("twitteR")
 library("syuzhet")            # syuzhet package is used for sentimant analysis
+library("ROAuth")             # 
 
 # Authonitical keys for APIs (Twitter App)
-consumer_key <- readline('TgfLPu5tUA6BwAfZyYDE0CGh3')
-consumer_secret <- readline('VL3RoimnCicd17D9Q4oBe7H01WoyXRqNWpSqK0ohTFbW72h3Sn')
-access_token <- readline('953953527545479168-2e5KABkImBdfeJMkSfkm56PC24DcTuz')
-access_secret <- readline('cpTrvqoxChtQCLvAIg4aTcy2VKg26jHJQei8Ta7HyHZVz') 
+consumer_key <- 'TgfLPu5tUA6BwAfZyYDE0CGh3'
+consumer_secret <- 'VL3RoimnCicd17D9Q4oBe7H01WoyXRqNWpSqK0ohTFbW72h3Sn'
+access_token <- '953953527545479168-2e5KABkImBdfeJMkSfkm56PC24DcTuz'
+access_secret <- 'cpTrvqoxChtQCLvAIg4aTcy2VKg26jHJQei8Ta7HyHZVz'
 
 setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
 tweets <- userTimeline("sachin_rt", n=500)         # I extrxted 500 tweets made by Sachin Tendulkar
@@ -24,7 +25,8 @@ text<-tweets.df$text
 head(tweets.df$text)
 
 text1 <- gsub("https.*","",text)
-text1 <- gsub("@.*","",text1)
+text1 <- gsub("@\\w+", "", text1)
+text1<-gsub("[[:punct:]]", "", text1)
 text1 <- gsub("#*","",text1)
 head(text1)
 
